@@ -85,60 +85,36 @@ const groupBy = key => array =>
     }, {});
 
 let numOr0 = n => isNaN(n) ? 0 : n;
-let replNum = n => {
-    if ((typeof n) !== "undefined") {
-        return Number(n.replace(/\D/g, ''));
-    }
-    return 0
-}
-
-window.onload = function () {
-
-    document.body.innerHTML = `<table border=1 id="1">
-        <tr> 
-            <td> Socks </br> quantity </td>
-            <td> Red Hats </br> quantity </td>
-            <td> All Red items cost </td>
-            <td> All Blue items cost </td>
-            <td> All Green items cost </td>
-        </tr>
-        <tr> 
-            <th> ${SocksQuantity} </th>
-            <th> ${RedHatsQuantity} </th>
-            <th> \$${ColorRed} </th>
-            <th> \$${ColorBlue} </th>
-            <th> \$${ColorGreen} </th>
-        </tr>`;
-}
+let replNum = n => ((typeof n) !== "undefined") ? Number(n.replace(/\D/g, '')) : 0;
 
 const groupByType = groupBy('type');
 const groupByColor = groupBy('color');
 
-let sortedByType = Object.entries(groupByType(shopData));
-let socksValues = sortedByType[0][1];
-let SortedByColor = Object.entries(groupByColor(shopData));
-let ColorsValueRed = SortedByColor[0][1];
-let ColorsValueGreen = SortedByColor[1][1];
-let ColorsValueBlue = SortedByColor[2][1];
-let hadSortedByColor = Object.entries(groupByColor(sortedByType[1][1]));
-let redHats = hadSortedByColor[0][1];
-let SocksQuantity = socksValues.reduce((a, b) => numOr0(a) + numOr0(b.quantity), {quantity: 0});
-let RedHatsQuantity = redHats.reduce((a, b) => numOr0(a) + b.quantity, {quantity: 0});
-let ColorRed = ColorsValueRed.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {
+const sortedGoodsByType = Object.entries(groupByType(shopData)); // Sort Goods by Type
+const socksValues = sortedGoodsByType[0][1];  // Take all goods by type socks
+const SortedGoodsByColor = Object.entries(groupByColor(shopData)); // Sort all Goods by colors
+const ColorsValueRed = SortedGoodsByColor[0][1]; // Sort all Goods by color red
+const ColorsValueGreen = SortedGoodsByColor[1][1]; // Sort all Goods by color green
+const ColorsValueBlue = SortedGoodsByColor[2][1]; // Sort all Goods by color blue
+const hatsSortedGoodsByColor = Object.entries(groupByColor(sortedGoodsByType[1][1])); // Take all hats by colors
+const redHats = hatsSortedGoodsByColor[0][1]; // Take all hats by color red
+let SocksQuantity = socksValues.reduce((a, b) => numOr0(a) + numOr0(b.quantity), {quantity: 0}); // Calculating the number of socks in the product list
+let RedHatsQuantity = redHats.reduce((a, b) => numOr0(a) + b.quantity, {quantity: 0}); // Calculating the number of red Hats in the product list
+let GoodsWithColorRed = ColorsValueRed.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {
     quantity: 0,
     price: 0,
     priceForPair: 0
-});
-let ColorGreen = ColorsValueGreen.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {
+}); //Calculating the total cost of red items
+let GoodsWithColorGreen = ColorsValueGreen.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {
     quantity: 0,
     price: 0,
     priceForPair: 0
-});
-let ColorBlue = ColorsValueBlue.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {
+}); //Calculating the total cost of green items
+let GoodsWithColorBlue = ColorsValueBlue.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {
     quantity: 0,
     price: 0,
     priceForPair: 0
-});
+}); //Calculating the total cost of blue items
 console.log(`Socks - ${SocksQuantity}`);
 console.log(`Red Hats - ${RedHatsQuantity}`);
-console.log(`Red - \$${ColorRed}, Green - \$${ColorGreen}, Blue - \$${ColorBlue}`);
+console.log(`Red - \$${GoodsWithColorRed}, Green - \$${GoodsWithColorGreen}, Blue - \$${GoodsWithColorBlue}`);
