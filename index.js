@@ -1,4 +1,11 @@
 'use strict'
+const groupBy = key => array =>
+    array.reduce((objectsByKeyValue, obj) => {
+        const value = obj[key];
+        objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
+        return objectsByKeyValue;
+    }, {});
+
 const shopData = [
     {
         "type": "socks",
@@ -77,28 +84,20 @@ const shopData = [
     }
 ];
 
-const groupBy = key => array =>
-    array.reduce((objectsByKeyValue, obj) => {
-        const value = obj[key];
-        objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
-        return objectsByKeyValue;
-    }, {});
-
 let numOr0 = n => isNaN(n) ? 0 : n;
 let replNum = n => ((typeof n) !== "undefined") ? Number(n.replace(/\D/g, '')) : 0;
 
 const groupByType = groupBy('type');
 const groupByColor = groupBy('color');
-
 const sortedGoodsByType = Object.entries(groupByType(shopData)); // Sort Goods by Type
-const socksValues = sortedGoodsByType[0][1];  // Take all goods by type socks
+const allSocks = sortedGoodsByType[0][1];  // Take all goods by type socks
 const SortedGoodsByColor = Object.entries(groupByColor(shopData)); // Sort all Goods by colors
 const ColorsValueRed = SortedGoodsByColor[0][1]; // Sort all Goods by color red
 const ColorsValueGreen = SortedGoodsByColor[1][1]; // Sort all Goods by color green
 const ColorsValueBlue = SortedGoodsByColor[2][1]; // Sort all Goods by color blue
 const hatsSortedGoodsByColor = Object.entries(groupByColor(sortedGoodsByType[1][1])); // Take all hats by colors
 const redHats = hatsSortedGoodsByColor[0][1]; // Take all hats by color red
-let SocksQuantity = socksValues.reduce((a, b) => numOr0(a) + numOr0(b.quantity), {quantity: 0}); // Calculating the number of socks in the product list
+let SocksQuantity = allSocks.reduce((a, b) => numOr0(a) + numOr0(b.quantity), {quantity: 0}); // Calculating the number of socks in the product list
 let RedHatsQuantity = redHats.reduce((a, b) => numOr0(a) + b.quantity, {quantity: 0}); // Calculating the number of red Hats in the product list
 let PriceOfGoodsWithColorRed = ColorsValueRed.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {
     quantity: 0,
