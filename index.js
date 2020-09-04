@@ -100,21 +100,21 @@ const hatsSortedGoodsByColor = Object.entries(groupByColor(sortedGoodsByType[1][
 const redHats = hatsSortedGoodsByColor[0][1]; // Take all hats by color red
 let SocksQuantity = socksValues.reduce((a, b) => numOr0(a) + numOr0(b.quantity), {quantity: 0}); // Calculating the number of socks in the product list
 let RedHatsQuantity = redHats.reduce((a, b) => numOr0(a) + b.quantity, {quantity: 0}); // Calculating the number of red Hats in the product list
-let GoodsWithColorRed = ColorsValueRed.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {
+let PriceOfGoodsWithColorRed = ColorsValueRed.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {
     quantity: 0,
     price: 0,
     priceForPair: 0
-}); //Calculating the total cost of red items
-let GoodsWithColorGreen = ColorsValueGreen.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {
+}); // Calculating the total cost of red items
+let PriceOfGoodsWithColorGreen = ColorsValueGreen.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {
     quantity: 0,
     price: 0,
     priceForPair: 0
-}); //Calculating the total cost of green items
-let GoodsWithColorBlue = ColorsValueBlue.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {
+}); // Calculating the total cost of green items
+let PriceOfGoodsWithColorBlue = ColorsValueBlue.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {
     quantity: 0,
     price: 0,
     priceForPair: 0
-}); //Calculating the total cost of blue items
+}); // Calculating the total cost of blue items
 console.log(`Socks - ${SocksQuantity}`);
 console.log(`Red Hats - ${RedHatsQuantity}`);
-console.log(`Red - \$${GoodsWithColorRed}, Green - \$${GoodsWithColorGreen}, Blue - \$${GoodsWithColorBlue}`);
+console.log(`Red - \$${PriceOfGoodsWithColorRed}, Green - \$${PriceOfGoodsWithColorGreen}, Blue - \$${PriceOfGoodsWithColorBlue}`);
