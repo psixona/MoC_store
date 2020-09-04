@@ -96,11 +96,11 @@ window.onload = function () {
 
     document.body.innerHTML = `<table border=1 id="1">
         <tr> 
-            <td> Socks </td>
-            <td> Red Hats </td>
-            <td> All cost Red </td>
-            <td> All cost Blue </td>
-            <td> All cost Green </td>
+            <td> Socks </br> quantity </td>
+            <td> Red Hats </br> quantity </td>
+            <td> All Red items cost </td>
+            <td> All Blue items cost </td>
+            <td> All Green items cost </td>
         </tr>
         <tr> 
             <th> ${SocksQuantity} </th>
