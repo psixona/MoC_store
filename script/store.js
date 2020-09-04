@@ -86,10 +86,29 @@ const groupBy = key => array =>
 
 let numOr0 = n => isNaN(n) ? 0 : n;
 let replNum = n => {
-    if ((typeof n) !== "undefined"){
-        return Number(n.replace(/\D/g,''));
+    if ((typeof n) !== "undefined") {
+        return Number(n.replace(/\D/g, ''));
     }
     return 0
+}
+
+window.onload = function () {
+
+    document.body.innerHTML = `<table border=1 id="1">
+        <tr> 
+            <td> Socks </td>
+            <td> Red Hats </td>
+            <td> All cost Red </td>
+            <td> All cost Blue </td>
+            <td> All cost Green </td>
+        </tr>
+        <tr> 
+            <th> ${SocksQuantity} </th>
+            <th> ${RedHatsQuantity} </th>
+            <th> \$${ColorRed} </th>
+            <th> \$${ColorBlue} </th>
+            <th> \$${ColorGreen} </th>
+        </tr>`;
 }
 
 const groupByType = groupBy('type');
@@ -103,11 +122,23 @@ let ColorsValueGreen = SortedByColor[1][1];
 let ColorsValueBlue = SortedByColor[2][1];
 let hadSortedByColor = Object.entries(groupByColor(sortedByType[1][1]));
 let redHats = hadSortedByColor[0][1];
-let SocksQuantity = socksValues.reduce((a, b) => numOr0(a) + numOr0(b.quantity), {quantity : 0});
-let RedHatsQuantity = redHats.reduce((a, b) => numOr0(a) + b.quantity, {quantity : 0});
-let ColorRed = ColorsValueRed.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {quantity: 0, price: 0, priceForPair : 0});
-let ColorGreen = ColorsValueGreen.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {quantity: 0, price: 0, priceForPair : 0});
-let ColorBlue = ColorsValueBlue.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {quantity: 0, price: 0, priceForPair : 0});
+let SocksQuantity = socksValues.reduce((a, b) => numOr0(a) + numOr0(b.quantity), {quantity: 0});
+let RedHatsQuantity = redHats.reduce((a, b) => numOr0(a) + b.quantity, {quantity: 0});
+let ColorRed = ColorsValueRed.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {
+    quantity: 0,
+    price: 0,
+    priceForPair: 0
+});
+let ColorGreen = ColorsValueGreen.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {
+    quantity: 0,
+    price: 0,
+    priceForPair: 0
+});
+let ColorBlue = ColorsValueBlue.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {
+    quantity: 0,
+    price: 0,
+    priceForPair: 0
+});
 console.log(`Socks - ${SocksQuantity}`);
 console.log(`Red Hats - ${RedHatsQuantity}`);
 console.log(`Red - \$${ColorRed}, Green - \$${ColorGreen}, Blue - \$${ColorBlue}`);
