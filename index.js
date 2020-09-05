@@ -93,15 +93,15 @@ let replNum = n => ((typeof n) !== "undefined") ? Number(n.replace(/\D/g, '')) :
 const groupByType = groupBy('type');
 const groupByColor = groupBy('color');
 
-let  sortedGoodsByType = Object.entries(groupByType(shopData));
-let sortedGoodsByColor = Object.entries(groupByColor(shopData));
-let hatsSortedGoodsByColor = Object.entries(groupByColor(sortedGoodsByType[1][1]));
+let sortedGoodsByType = groupByType(shopData);
+let sortedGoodsByColor = groupByColor(shopData);
+let hatsSortedGoodsByColor = groupByColor(sortedGoodsByType['hat']);
 
-let takeAllSocks = sortedGoodsByType[0][1];
-let takeAllRedHats = hatsSortedGoodsByColor[0][1];
-let colorsValueRed = sortedGoodsByColor[0][1];
-let colorsValueGreen = sortedGoodsByColor[1][1];
-let colorsValueBlue = sortedGoodsByColor[2][1];
+let takeAllSocks = sortedGoodsByType['socks'];
+let takeAllRedHats = hatsSortedGoodsByColor['red'];
+let colorsValueRed = sortedGoodsByColor['red'];
+let colorsValueGreen = sortedGoodsByColor['green'];
+let colorsValueBlue = sortedGoodsByColor['blue'];
 
 let socksQuantity = takeAllSocks.reduce((a, b) => calculationSum2(a, b), {quantity: 0});
 let takeAllRedHatsQuantity = takeAllRedHats.reduce((a, b) => calculationSum2(a, b), {quantity: 0});
