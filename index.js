@@ -106,17 +106,17 @@ let allGoodsByBlueColor = sortedGoodsByColor['blue'];
 
 let quantitySocks = allSocks.reduce((a, b) => calculationSumQuantity(a, b), {quantity: 0});
 let quantityAllRedHats = allRedHats.reduce((a, b) => calculationSumQuantity(a, b), {quantity: 0});
-let costGoodsByColorRed = allGoodsByRedColor.reduce((a, b) =>  calculationSumOfTotalCost(a, b), {
+let costGoodsByColorRed = allGoodsByRedColor.reduce((a, b) => calculationSumOfTotalCost(a, b), {
     quantity: 0,
     price: 0,
     priceForPair: 0
 });
-let costGoodsByColorGreen = allGoodsByGreenColor.reduce((a, b) =>  calculationSumOfTotalCost(a, b), {
+let costGoodsByColorGreen = allGoodsByGreenColor.reduce((a, b) => calculationSumOfTotalCost(a, b), {
     quantity: 0,
     price: 0,
     priceForPair: 0
 });
-let costGoodsByColorBlue = allGoodsByBlueColor.reduce((a, b) =>  calculationSumOfTotalCost(a, b), {
+let costGoodsByColorBlue = allGoodsByBlueColor.reduce((a, b) => calculationSumOfTotalCost(a, b), {
     quantity: 0,
     price: 0,
     priceForPair: 0
