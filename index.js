@@ -90,15 +90,15 @@ let replNum = n => ((typeof n) !== "undefined") ? Number(n.replace(/\D/g, '')) :
 const groupByType = groupBy('type');
 const groupByColor = groupBy('color');
 const sortedGoodsByType = Object.entries(groupByType(shopData));
-const allSocks = sortedGoodsByType[0][1];
+const takeAllSocks = sortedGoodsByType[0][1];
 const sortedGoodsByColor = Object.entries(groupByColor(shopData));
 const colorsValueRed = sortedGoodsByColor[0][1];
 const colorsValueGreen = sortedGoodsByColor[1][1];
 const colorsValueBlue = sortedGoodsByColor[2][1];
 const hatsSortedGoodsByColor = Object.entries(groupByColor(sortedGoodsByType[1][1]));
-const redHats = hatsSortedGoodsByColor[0][1];
-let socksQuantity = allSocks.reduce((a, b) => numOr0(a) + numOr0(b.quantity), {quantity: 0});
-let redHatsQuantity = redHats.reduce((a, b) => numOr0(a) + b.quantity, {quantity: 0});
+const takeAllRedHats = hatsSortedGoodsByColor[0][1];
+let socksQuantity = takeAllSocks.reduce((a, b) => numOr0(a) + numOr0(b.quantity), {quantity: 0});
+let takeAllRedHatsQuantity = takeAllRedHats.reduce((a, b) => numOr0(a) + b.quantity, {quantity: 0});
 let priceOfGoodsWithColorRed = colorsValueRed.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {
     quantity: 0,
     price: 0,
@@ -115,5 +115,5 @@ let priceOfGoodsWithColorBlue = colorsValueBlue.reduce((a, b) => numOr0(a) + Num
     priceForPair: 0
 });
 console.log(`Socks - ${socksQuantity}`);
-console.log(`Red Hats - ${redHatsQuantity}`);
+console.log(`Red Hats - ${takeAllRedHatsQuantity}`);
 console.log(`Red - \$${priceOfGoodsWithColorRed}, Green - \$${priceOfGoodsWithColorGreen}, Blue - \$${priceOfGoodsWithColorBlue}`);
