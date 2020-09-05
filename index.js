@@ -96,32 +96,32 @@ const groupByColor = groupBy('color');
 
 let sortedGoodsByType = groupByType(shopData);
 let sortedGoodsByColor = groupByColor(shopData);
-let hatsSortedGoodsByColor = groupByColor(sortedGoodsByType['hat']);
+let sortedHatsByColor = groupByColor(sortedGoodsByType['hat']);
 
-let takeAllSocks = sortedGoodsByType['socks'];
-let takeAllRedHats = hatsSortedGoodsByColor['red'];
-let colorsValueRed = sortedGoodsByColor['red'];
+let allSocks = sortedGoodsByType['socks'];
+let allRedHats = sortedHatsByColor['red'];
+let allGoodsByRedColor = sortedGoodsByColor['red'];
 let colorsValueGreen = sortedGoodsByColor['green'];
 let colorsValueBlue = sortedGoodsByColor['blue'];
 
-let socksQuantity = takeAllSocks.reduce((a, b) => calculationSumQuantity(a, b), {quantity: 0});
-let takeAllRedHatsQuantity = takeAllRedHats.reduce((a, b) => calculationSumQuantity(a, b), {quantity: 0});
-let priceOfGoodsWithColorRed = colorsValueRed.reduce((a, b) =>  calculationSumOfTotalCost(a, b), {
+let socksQuantity = allSocks.reduce((a, b) => calculationSumQuantity(a, b), {quantity: 0});
+let allRedHatsQuantity = allRedHats.reduce((a, b) => calculationSumQuantity(a, b), {quantity: 0});
+let costGoodsByColorRed = allGoodsByRedColor.reduce((a, b) =>  calculationSumOfTotalCost(a, b), {
     quantity: 0,
     price: 0,
     priceForPair: 0
 });
-let priceOfGoodsWithColorGreen = colorsValueGreen.reduce((a, b) =>  calculationSumOfTotalCost(a, b), {
+let costGoodsByColorGreen = colorsValueGreen.reduce((a, b) =>  calculationSumOfTotalCost(a, b), {
     quantity: 0,
     price: 0,
     priceForPair: 0
 });
-let priceOfGoodsWithColorBlue = colorsValueBlue.reduce((a, b) =>  calculationSumOfTotalCost(a, b), {
+let costGoodsByColorBlue = colorsValueBlue.reduce((a, b) =>  calculationSumOfTotalCost(a, b), {
     quantity: 0,
     price: 0,
     priceForPair: 0
 });
 
 console.log(`Socks - ${socksQuantity}`);
-console.log(`Red Hats - ${takeAllRedHatsQuantity}`);
-console.log(`Red - \$${priceOfGoodsWithColorRed}, Green - \$${priceOfGoodsWithColorGreen}, Blue - \$${priceOfGoodsWithColorBlue}`);
+console.log(`Red Hats - ${allRedHatsQuantity}`);
+console.log(`Red - \$${costGoodsByColorRed}, Green - \$${costGoodsByColorGreen}, Blue - \$${costGoodsByColorBlue}`);
