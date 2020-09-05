@@ -1,10 +1,4 @@
 'use strict'
-const groupBy = key => array =>
-    array.reduce((objectsByKeyValue, obj) => {
-        const value = obj[key];
-        objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
-        return objectsByKeyValue;
-    }, {});
 
 const shopData = [
     {
@@ -84,32 +78,44 @@ const shopData = [
     }
 ];
 
+const groupBy = key => array =>
+    array.reduce((objectsByKeyValue, obj) => {
+        const value = obj[key];
+        objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
+        return objectsByKeyValue;
+    }, {});
+const calculationSum = (a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair));
+const calculationSum2 = (a, b) => numOr0(a) + numOr0(b.quantity);
+
 let numOr0 = n => isNaN(n) ? 0 : n;
 let replNum = n => ((typeof n) !== "undefined") ? Number(n.replace(/\D/g, '')) : 0;
 
 const groupByType = groupBy('type');
 const groupByColor = groupBy('color');
-const sortedGoodsByType = Object.entries(groupByType(shopData));
-const takeAllSocks = sortedGoodsByType[0][1];
-const sortedGoodsByColor = Object.entries(groupByColor(shopData));
-const colorsValueRed = sortedGoodsByColor[0][1];
-const colorsValueGreen = sortedGoodsByColor[1][1];
-const colorsValueBlue = sortedGoodsByColor[2][1];
-const hatsSortedGoodsByColor = Object.entries(groupByColor(sortedGoodsByType[1][1]));
-const takeAllRedHats = hatsSortedGoodsByColor[0][1];
-let socksQuantity = takeAllSocks.reduce((a, b) => numOr0(a) + numOr0(b.quantity), {quantity: 0});
-let takeAllRedHatsQuantity = takeAllRedHats.reduce((a, b) => numOr0(a) + b.quantity, {quantity: 0});
-let priceOfGoodsWithColorRed = colorsValueRed.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {
+
+let  sortedGoodsByType = Object.entries(groupByType(shopData));
+let sortedGoodsByColor = Object.entries(groupByColor(shopData));
+let hatsSortedGoodsByColor = Object.entries(groupByColor(sortedGoodsByType[1][1]));
+
+let takeAllSocks = sortedGoodsByType[0][1];
+let takeAllRedHats = hatsSortedGoodsByColor[0][1];
+let colorsValueRed = sortedGoodsByColor[0][1];
+let colorsValueGreen = sortedGoodsByColor[1][1];
+let colorsValueBlue = sortedGoodsByColor[2][1];
+
+let socksQuantity = takeAllSocks.reduce((a, b) => calculationSum2(a, b), {quantity: 0});
+let takeAllRedHatsQuantity = takeAllRedHats.reduce((a, b) => calculationSum2(a, b), {quantity: 0});
+let priceOfGoodsWithColorRed = colorsValueRed.reduce((a, b) =>  calculationSum(a, b), {
     quantity: 0,
     price: 0,
     priceForPair: 0
 });
-let priceOfGoodsWithColorGreen = colorsValueGreen.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {
+let priceOfGoodsWithColorGreen = colorsValueGreen.reduce((a, b) =>  calculationSum(a, b), {
     quantity: 0,
     price: 0,
     priceForPair: 0
 });
-let priceOfGoodsWithColorBlue = colorsValueBlue.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {
+let priceOfGoodsWithColorBlue = colorsValueBlue.reduce((a, b) =>  calculationSum(a, b), {
     quantity: 0,
     price: 0,
     priceForPair: 0
