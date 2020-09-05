@@ -89,31 +89,31 @@ let replNum = n => ((typeof n) !== "undefined") ? Number(n.replace(/\D/g, '')) :
 
 const groupByType = groupBy('type');
 const groupByColor = groupBy('color');
-const sortedGoodsByType = Object.entries(groupByType(shopData)); // Sort Goods by Type
-const allSocks = sortedGoodsByType[0][1];  // Take all goods by type socks
-const sortedGoodsByColor = Object.entries(groupByColor(shopData)); // Sort all Goods by colors
-const colorsValueRed = sortedGoodsByColor[0][1]; // Sort all Goods by color red
-const colorsValueGreen = sortedGoodsByColor[1][1]; // Sort all Goods by color green
-const colorsValueBlue = sortedGoodsByColor[2][1]; // Sort all Goods by color blue
-const hatsSortedGoodsByColor = Object.entries(groupByColor(sortedGoodsByType[1][1])); // Take all hats by colors
-const redHats = hatsSortedGoodsByColor[0][1]; // Take all hats by color red
-let socksQuantity = allSocks.reduce((a, b) => numOr0(a) + numOr0(b.quantity), {quantity: 0}); // Calculating the number of socks in the product list
-let redHatsQuantity = redHats.reduce((a, b) => numOr0(a) + b.quantity, {quantity: 0}); // Calculating the number of red Hats in the product list
+const sortedGoodsByType = Object.entries(groupByType(shopData));
+const allSocks = sortedGoodsByType[0][1];
+const sortedGoodsByColor = Object.entries(groupByColor(shopData));
+const colorsValueRed = sortedGoodsByColor[0][1];
+const colorsValueGreen = sortedGoodsByColor[1][1];
+const colorsValueBlue = sortedGoodsByColor[2][1];
+const hatsSortedGoodsByColor = Object.entries(groupByColor(sortedGoodsByType[1][1]));
+const redHats = hatsSortedGoodsByColor[0][1];
+let socksQuantity = allSocks.reduce((a, b) => numOr0(a) + numOr0(b.quantity), {quantity: 0});
+let redHatsQuantity = redHats.reduce((a, b) => numOr0(a) + b.quantity, {quantity: 0});
 let priceOfGoodsWithColorRed = colorsValueRed.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {
     quantity: 0,
     price: 0,
     priceForPair: 0
-}); // Calculating the total cost of red items
+});
 let priceOfGoodsWithColorGreen = colorsValueGreen.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {
     quantity: 0,
     price: 0,
     priceForPair: 0
-}); // Calculating the total cost of green items
+});
 let priceOfGoodsWithColorBlue = colorsValueBlue.reduce((a, b) => numOr0(a) + Number(numOr0(b.quantity) * replNum(b.price)) + Number(numOr0(b.quantity) * replNum(b.priceForPair)), {
     quantity: 0,
     price: 0,
     priceForPair: 0
-}); // Calculating the total cost of blue items
+});
 console.log(`Socks - ${socksQuantity}`);
 console.log(`Red Hats - ${redHatsQuantity}`);
 console.log(`Red - \$${priceOfGoodsWithColorRed}, Green - \$${priceOfGoodsWithColorGreen}, Blue - \$${priceOfGoodsWithColorBlue}`);
